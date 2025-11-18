@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
 import { Plane, Clock, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 
 interface FlightProposalsScreenProps {
   onNavigate: (screen: string) => void;
@@ -107,7 +107,7 @@ export function FlightProposalsScreen({ onNavigate }: FlightProposalsScreenProps
             <div className="w-10 h-10 bg-[#4ECDC4]/10 rounded-xl flex items-center justify-center">
               <Plane className="w-6 h-6 text-[#4ECDC4]" />
             </div>
-            <h1 className="text-[#1e3a5f]">
+            <h1 className="text-[#1e3a5f] text-[24px] font-bold">
               Choix du Vol
             </h1>
           </div>
@@ -127,7 +127,7 @@ export function FlightProposalsScreen({ onNavigate }: FlightProposalsScreenProps
                 15 mai 2025 • 1 adulte
               </p>
             </div>
-            <SmilingLuggage size={35} />
+            <Logo size={35} />
           </div>
         </div>
 

@@ -129,6 +129,22 @@
   }
 }
 
+/* Custom animations */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /**
  * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
  */
@@ -186,4 +202,25 @@
 
 html {
   font-size: var(--font-size);
+}
+
+/* iOS Safe Area Support */
+@supports (padding: max(0px)) {
+  /* Support pour les encoches iOS (notch) et barre home */
+  .pt-safe {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pb-safe-offset-2 {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+  
+  /* Pour la navbar */
+  .safe-area-nav {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }

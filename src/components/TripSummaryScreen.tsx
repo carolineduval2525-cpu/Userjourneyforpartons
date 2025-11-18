@@ -1,7 +1,7 @@
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
 import { Plane, Hotel, Users, Trophy, ExternalLink, ChevronLeft, Sparkles } from 'lucide-react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 
 interface TripSummaryScreenProps {
   onNavigate: (screen: string) => void;
@@ -46,12 +46,12 @@ export function TripSummaryScreen({ onNavigate }: TripSummaryScreenProps) {
         {/* Header */}
         <div className="text-center mb-6">
           <div className="inline-block mb-3">
-            <SmilingLuggage size={50} />
+            <Logo size={50} />
           </div>
-          <h1 className="text-[#1e3a5f] mb-2">
+          <h1 className="text-[#1e3a5f] mb-2 text-left text-[24px] font-bold">
             Votre Voyage
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-left">
             Résumé des choix validés par le groupe
           </p>
         </div>

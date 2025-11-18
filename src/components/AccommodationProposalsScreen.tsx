@@ -5,12 +5,15 @@ import {
   Hotel,
   Star,
   MapPin,
+  Users,
   ChevronLeft,
-  Sparkles,
+  ChevronRight,
   CheckCircle,
+  Wifi,
+  Coffee,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { SmilingLuggage } from "./SmilingLuggage";
+import { Logo } from "./Logo";
 
 interface AccommodationProposalsScreenProps {
   onNavigate: (screen: string) => void;
@@ -176,7 +179,7 @@ export function AccommodationProposalsScreen({
             <div className="w-10 h-10 bg-[#4ECDC4]/10 rounded-xl flex items-center justify-center">
               <Hotel className="w-6 h-6 text-[#4ECDC4]" />
             </div>
-            <h1 className="text-[#1e3a5f]">
+            <h1 className="text-[#1e3a5f] text-[20px] font-bold">
               Choix de l'Hébergement
             </h1>
           </div>
@@ -198,7 +201,7 @@ export function AccommodationProposalsScreen({
                 15 - 22 mai 2025 • 7 nuits • 1 adulte
               </p>
             </div>
-            <SmilingLuggage size={35} />
+            <Logo size={35} />
           </div>
         </div>
 
@@ -306,7 +309,7 @@ export function AccommodationProposalsScreen({
           onClick={() => onNavigate("trip-summary")}
           className="w-full bg-[#4ECDC4] hover:bg-[#3db8af] text-white h-12 rounded-full transition-all transform active:scale-95"
         >
-          <Sparkles className="w-5 h-5 mr-2" />
+          <Wifi className="w-5 h-5 mr-2" />
           Voir les résultats du vote
         </Button>
         <Button

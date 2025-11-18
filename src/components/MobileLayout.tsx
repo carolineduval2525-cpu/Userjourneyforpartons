@@ -1,83 +1,104 @@
-import { Menu, User, Home, Users, Globe, UserCircle } from 'lucide-react';
-import logoImage from 'figma:asset/c393bca3a09499850908ebfeae09c4aed20a4cbc.png';
+import { Home, MessageCircle, Plane, User } from 'lucide-react';
+import { ReactNode } from 'react';
+import { Logo } from './Logo';
 
 interface MobileLayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
   activeTab?: 'home' | 'groups' | 'travels' | 'profile';
-  onNavigate?: (screen: string) => void;
   showNavbar?: boolean;
+  showHeader?: boolean;
+  onNavigate: (screen: string) => void;
 }
 
-export function MobileLayout({ children, activeTab = 'home', onNavigate, showNavbar = true }: MobileLayoutProps) {
+export function MobileLayout({
+  children,
+  activeTab = 'home',
+  showNavbar = true,
+  showHeader = false,
+  onNavigate,
+}: MobileLayoutProps) {
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-white flex flex-col relative">
-      {/* Wave Pattern Background */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 opacity-5 pointer-events-none">
-        <svg viewBox="0 0 1440 320" className="w-full h-full">
-          <path fill="#4ECDC4" fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-        </svg>
-      </div>
+    <div className="max-w-md mx-auto min-h-screen bg-gray-50 relative">
+      {/* Header with Logo */}
+      {showHeader && (
+        <div className="sticky top-0 z-40 bg-white border-b border-gray-200 px-6 py-4 pt-safe">
+          <div className="flex items-center justify-center">
+            <Logo size={120} />
+          </div>
+        </div>
+      )}
+      
+      <div className="pb-32">{children}</div>
 
-      {/* Header */}
-      <header className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100 sticky top-0 z-50">
-        <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-          <Menu className="w-6 h-6 text-gray-700" />
-        </button>
-        
-        <img src={logoImage} alt="Partons!" className="h-16 w-auto" />
-        
-        <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-          <User className="w-6 h-6 text-gray-700" />
-        </button>
-      </header>
-
-      {/* Content */}
-      <main className="flex-1 overflow-y-auto pb-20">
-        {children}
-      </main>
-
-      {/* Bottom Navigation */}
       {showNavbar && (
-        <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 px-6 py-3">
-          <div className="flex items-center justify-between">
+        <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 z-50 shadow-lg safe-area-nav">
+          <div className="flex items-center justify-around px-2 pt-2 pb-safe-offset-2">
+            {/* Accueil */}
             <button
-              onClick={() => onNavigate?.('home')}
-              className="flex flex-col items-center gap-1 transition-colors"
+              onClick={() => onNavigate('home')}
+              className={`flex flex-col items-center gap-1 transition-all flex-1 py-2 px-3 rounded-lg min-h-[44px] min-w-[44px] justify-center ${
+                activeTab === 'home' ? 'text-[#4ECDC4]' : 'text-gray-400'
+              }`}
             >
-              <Home className={`w-6 h-6 ${activeTab === 'home' ? 'text-[#4ECDC4]' : 'text-gray-400'}`} />
-              <span className={`text-xs ${activeTab === 'home' ? 'text-[#4ECDC4]' : 'text-gray-400'}`}>
-                Accueil
-              </span>
+              <Home className="w-6 h-6" />
+              <span className="text-xs">Accueil</span>
             </button>
-            
+
+            {/* Groupes (Messagerie) */}
             <button
-              onClick={() => onNavigate?.('groups')}
-              className="flex flex-col items-center gap-1 transition-colors"
+              onClick={() => onNavigate('groups')}
+              className={`flex flex-col items-center gap-1 transition-all flex-1 py-2 px-3 rounded-lg min-h-[44px] min-w-[44px] justify-center ${
+                activeTab === 'groups' ? 'text-[#4ECDC4]' : 'text-gray-400'
+              }`}
             >
-              <Users className={`w-6 h-6 ${activeTab === 'groups' ? 'text-[#4ECDC4]' : 'text-gray-400'}`} />
-              <span className={`text-xs ${activeTab === 'groups' ? 'text-[#4ECDC4]' : 'text-gray-400'}`}>
-                Groupes
-              </span>
+              <MessageCircle className="w-6 h-6" />
+              <span className="text-xs">Groupes</span>
             </button>
-            
+
+            {/* Bouton + Central - Mis en avant */}
             <button
-              onClick={() => onNavigate?.('travels')}
-              className="flex flex-col items-center gap-1 transition-colors"
+              onClick={() => onNavigate('travel-choice')}
+              className="flex flex-col items-center gap-1 transition-all duration-300 flex-1 py-2 px-3 min-h-[44px] min-w-[44px] justify-center"
             >
-              <Globe className={`w-6 h-6 ${activeTab === 'travels' ? 'text-[#4ECDC4]' : 'text-gray-400'}`} />
-              <span className={`text-xs ${activeTab === 'travels' ? 'text-[#4ECDC4]' : 'text-gray-400'}`}>
-                Voyages
-              </span>
+              <div className="w-14 h-14 bg-gradient-to-br from-[#4ECDC4] via-[#3db8af] to-cyan-600 rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 border-4 border-white">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="drop-shadow-lg"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </div>
+              <span className="text-xs text-[#4ECDC4] font-medium">Créer</span>
             </button>
-            
+
+            {/* Mes Voyages */}
             <button
-              onClick={() => onNavigate?.('profile')}
-              className="flex flex-col items-center gap-1 transition-colors"
+              onClick={() => onNavigate('travels')}
+              className={`flex flex-col items-center gap-1 transition-all flex-1 py-2 px-3 rounded-lg min-h-[44px] min-w-[44px] justify-center ${
+                activeTab === 'travels' ? 'text-[#4ECDC4]' : 'text-gray-400'
+              }`}
             >
-              <UserCircle className={`w-6 h-6 ${activeTab === 'profile' ? 'text-[#4ECDC4]' : 'text-gray-400'}`} />
-              <span className={`text-xs ${activeTab === 'profile' ? 'text-[#4ECDC4]' : 'text-gray-400'}`}>
-                Profil
-              </span>
+              <Plane className="w-6 h-6" />
+              <span className="text-xs">Voyages</span>
+            </button>
+
+            {/* Profil */}
+            <button
+              onClick={() => onNavigate('profile')}
+              className={`flex flex-col items-center gap-1 transition-all flex-1 py-2 px-3 rounded-lg min-h-[44px] min-w-[44px] justify-center ${
+                activeTab === 'profile' ? 'text-[#4ECDC4]' : 'text-gray-400'
+              }`}
+            >
+              <User className="w-6 h-6" />
+              <span className="text-xs">Profil</span>
             </button>
           </div>
         </nav>

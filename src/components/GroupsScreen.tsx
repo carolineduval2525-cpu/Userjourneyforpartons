@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import type { Trip } from '../App';
 
 interface GroupsScreenProps {
-  onNavigate: (screen: string) => void;
+  onNavigate: (screen: string, groupId?: string | number) => void;
   trips: Trip[];
 }
 
@@ -43,7 +43,7 @@ export function GroupsScreen({ onNavigate, trips }: GroupsScreenProps) {
   ];
 
   return (
-    <MobileLayout activeTab="groups" onNavigate={onNavigate}>
+    <MobileLayout activeTab="groups" onNavigate={(screen) => onNavigate(screen)}>
       <div className="p-6">
         <div className="mb-6">
           <h1 className="text-[#1e3a5f] mb-2">
@@ -59,7 +59,7 @@ export function GroupsScreen({ onNavigate, trips }: GroupsScreenProps) {
             <div
               key={group.id}
               className="bg-white rounded-2xl border border-gray-200 p-4 hover:shadow-md transition-all cursor-pointer"
-              onClick={() => group.trip ? onNavigate('details') : null}
+              onClick={() => onNavigate('group-details', group.id)}
             >
               <div className="flex items-start justify-between mb-3">
                 <div>

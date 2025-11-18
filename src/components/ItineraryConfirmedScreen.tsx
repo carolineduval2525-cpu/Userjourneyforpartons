@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Plane, Hotel, Save, Check, ChevronLeft, Calendar, MapPin } from 'lucide-react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 import type { Trip } from '../App';
 
 interface ItineraryConfirmedScreenProps {
@@ -18,46 +18,44 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
-    if (flightConfirmation || hotelConfirmation) {
-      setSaved(true);
-      
-      // Create the new trip object
-      const newTrip: Trip = {
-        id: Date.now().toString(),
-        destination: 'Bali',
-        country: 'Indonésie',
-        image: 'bali temple sunset',
-        dates: {
-          start: '15 mai 2025',
-          end: '22 mai 2025',
-        },
-        duration: 7,
-        members: 1,
-        budget: 1620,
-        status: 'Confirmé',
-        flight: {
-          airline: 'Air France',
-          departure: 'CDG 18:00',
-          arrival: 'DPS 22:30',
-          price: 780,
-          confirmationNumber: flightConfirmation,
-        },
-        accommodation: {
-          title: 'Villa avec piscine privée',
-          type: 'Villa entière',
-          pricePerNight: 120,
-          location: 'Seminyak',
-          nights: 7,
-          confirmationNumber: hotelConfirmation,
-        },
-      };
-      
-      onSaveTrip(newTrip);
-      
-      setTimeout(() => {
-        onNavigate('home');
-      }, 2000);
-    }
+    setSaved(true);
+    
+    // Create the new trip object
+    const newTrip: Trip = {
+      id: Date.now().toString(),
+      destination: 'Bali',
+      country: 'Indonésie',
+      image: 'bali temple sunset',
+      dates: {
+        start: '15 mai 2025',
+        end: '22 mai 2025',
+      },
+      duration: 7,
+      members: 1,
+      budget: 1620,
+      status: 'Confirmé',
+      flight: {
+        airline: 'Air France',
+        departure: 'CDG 18:00',
+        arrival: 'DPS 22:30',
+        price: 780,
+        confirmationNumber: flightConfirmation || undefined,
+      },
+      accommodation: {
+        title: 'Villa avec piscine privée',
+        type: 'Villa entière',
+        pricePerNight: 120,
+        location: 'Seminyak',
+        nights: 7,
+        confirmationNumber: hotelConfirmation || undefined,
+      },
+    };
+    
+    onSaveTrip(newTrip);
+    
+    setTimeout(() => {
+      onNavigate('my-trips');
+    }, 1500);
   };
 
   return (
@@ -75,7 +73,7 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
         {/* Header */}
         <div className="text-center mb-6">
           <div className="inline-block mb-3">
-            <SmilingLuggage size={50} />
+            <Logo size={50} />
           </div>
           <h1 className="text-[#1e3a5f] mb-2">
             Itinéraire : Bali
@@ -204,10 +202,10 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
           <Button
             onClick={handleSave}
             disabled={saved}
-            className={`w-full h-12 rounded-full transition-all transform active:scale-95 ${
+            className={`w-full h-12 rounded-full transition-all transform active:scale-95 shadow-lg ${
               saved
                 ? 'bg-green-500 hover:bg-green-600'
-                : 'bg-[#4ECDC4] hover:bg-[#3db8af]'
+                : 'bg-gradient-to-r from-[#4ECDC4] to-[#3db8af] hover:from-[#3db8af] hover:to-[#4ECDC4]'
             } text-white`}
           >
             {saved ? (
@@ -218,7 +216,7 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
             ) : (
               <>
                 <Save className="w-5 h-5 mr-2" />
-                Sauvegarder les informations
+                Sauvegarder mon itinéraire
               </>
             )}
           </Button>

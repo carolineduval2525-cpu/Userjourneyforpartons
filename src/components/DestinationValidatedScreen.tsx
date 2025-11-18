@@ -2,7 +2,7 @@ import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
 import { MapPin, Users, TrendingUp, Sparkles } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 
 interface DestinationValidatedScreenProps {
   onNavigate: (screen: string) => void;
@@ -12,7 +12,7 @@ export function DestinationValidatedScreen({ onNavigate }: DestinationValidatedS
   // Données de la destination gagnante
   const winningDestination = {
     name: 'Bali, Indonésie',
-    image: 'bali temple sunset',
+    image: 'https://images.unsplash.com/photo-1648999637610-a0604610e23f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWxpJTIwdGVtcGxlJTIwYmVhY2h8ZW58MXx8fHwxNzYzMzMwMzk4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
     description: 'Plages paradisiaques, temples mystiques et rizières en terrasse. Une destination parfaite pour se ressourcer.',
     compatibility: 95,
     votes: 4,
@@ -25,15 +25,15 @@ export function DestinationValidatedScreen({ onNavigate }: DestinationValidatedS
         {/* Confetti Animation Header */}
         <div className="text-center mb-6 animate-in fade-in zoom-in duration-500">
           <div className="inline-block mb-4 relative">
-            <SmilingLuggage size={70} />
+            <Logo size={70} />
             <div className="absolute -top-2 -right-2 text-3xl animate-bounce">
               🎉
             </div>
           </div>
-          <h1 className="text-[#1e3a5f] mb-2">
+          <h1 className="text-[#1e3a5f] mb-2 text-[20px]">
             C'est décidé !
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-[16px]">
             Votre groupe a choisi sa destination
           </p>
         </div>
@@ -51,7 +51,7 @@ export function DestinationValidatedScreen({ onNavigate }: DestinationValidatedS
             {/* Image */}
             <div className="relative h-64">
               <ImageWithFallback
-                src={`https://source.unsplash.com/800x600/?${winningDestination.image}`}
+                src={winningDestination.image}
                 alt={winningDestination.name}
                 className="w-full h-full object-cover"
               />

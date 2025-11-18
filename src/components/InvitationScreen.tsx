@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { UserPlus, Mail, X, ChevronLeft, Phone } from 'lucide-react';
 import { useState } from 'react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
 
 interface InvitationScreenProps {
@@ -52,12 +52,9 @@ export function InvitationScreen({ onNavigate }: InvitationScreenProps) {
         <ProgressBar currentStep={2} totalSteps={7} stepNames={stepNames} />
 
         <div className="mb-6 relative z-10">
-          <div className="flex items-center gap-3 mb-3">
-            <SmilingLuggage size={40} />
-            <h1 className="text-[#1e3a5f]">
-              Qui vient avec toi ?
-            </h1>
-          </div>
+          <h1 className="text-[#1e3a5f] mb-2 text-2xl font-bold">
+            Qui vient avec toi ?
+          </h1>
           <p className="text-gray-600">
             Invite tes amis à rejoindre l'aventure !
           </p>

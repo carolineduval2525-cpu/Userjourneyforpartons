@@ -3,7 +3,7 @@ import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
 import { TrendingUp, Users, MapPin, ChevronLeft, CheckCircle } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 
 interface VoteDestinationScreenProps {
   onNavigate: (screen: string) => void;
@@ -13,7 +13,7 @@ const destinations = [
   {
     id: 1,
     name: 'Bali, Indonésie',
-    image: 'https://images.unsplash.com/photo-1669545192473-f4d88714fe2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWxpJTIwdGVtcGxlJTIwc3Vuc2V0fGVufDF8fHx8MTc2MzMwODQzMXww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1648999637610-a0604610e23f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWxpJTIwdGVtcGxlJTIwYmVhY2h8ZW58MXx8fHwxNzYzNDg3MTM0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
     description: 'Plages paradisiaques, temples mystiques et rizières en terrasse. Une destination parfaite pour se ressourcer.',
     compatibility: 95,
     votes: 0,
@@ -21,7 +21,7 @@ const destinations = [
   {
     id: 2,
     name: 'Tokyo, Japon',
-    image: 'https://images.unsplash.com/photo-1583915223588-7d88ebf23414?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0b2t5byUyMGNpdHklMjBuaWdodHxlbnwxfHx8fDE3NjMzMDE1Nzh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1648871647634-0c99b483cb63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0b2t5byUyMGphcGFuJTIwY2l0eXNjYXBlfGVufDF8fHx8MTc2MzQ2MzUxNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
     description: 'Culture traditionnelle et modernité ultraconnectée. Une aventure urbaine fascinante entre temples et néons.',
     compatibility: 88,
     votes: 0,
@@ -29,7 +29,7 @@ const destinations = [
   {
     id: 3,
     name: 'Lisbonne, Portugal',
-    image: 'https://images.unsplash.com/photo-1604400555082-b6131dfc4d95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsaXNib24lMjB0cmFtd2F5JTIwc3RyZWV0fGVufDF8fHx8MTc2MzMwODQzM3ww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1664186433986-000b86bebbaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsaXNib24lMjBwb3J0dWdhbCUyMHRyYW18ZW58MXx8fHwxNzYzNDg3MTM1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
     description: 'Ruelles colorées, tramways vintage et gastronomie délicieuse. Le charme méditerranéen à l\'état pur.',
     compatibility: 82,
     votes: 0,
@@ -61,18 +61,15 @@ export function VoteDestinationScreen({ onNavigate }: VoteDestinationScreenProps
         {/* Back Button */}
         <button
           onClick={() => onNavigate('results')}
-          className="flex items-center gap-2 text-gray-600 hover:text-[#4ECDC4] mb-4 transition-colors"
+          className="flex items-center gap-2 text-gray-600 hover:text-[#4ECDC4] mb-4 transition-colors min-h-[44px] min-w-[44px]"
         >
           <ChevronLeft className="w-5 h-5" />
           <span className="text-sm">Retour</span>
         </button>
 
         {/* Header */}
-        <div className="mb-6 text-center">
-          <div className="inline-block mb-3">
-            <SmilingLuggage size={50} />
-          </div>
-          <h1 className="text-[#1e3a5f] mb-2">
+        <div className="mb-6">
+          <h1 className="text-[#1e3a5f] mb-2 text-2xl font-bold">
             Où partons-nous ?
           </h1>
           <p className="text-gray-600">
@@ -88,7 +85,7 @@ export function VoteDestinationScreen({ onNavigate }: VoteDestinationScreenProps
         </div>
 
         {/* Destinations */}
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 space-y-4 mb-6">
           {destinations.map((dest) => (
             <button
               key={dest.id}
@@ -101,7 +98,7 @@ export function VoteDestinationScreen({ onNavigate }: VoteDestinationScreenProps
               } ${voted ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
             >
               {/* Image */}
-              <div className="relative h-40">
+              <div className="relative h-32">
                 <ImageWithFallback
                   src={dest.image}
                   alt={dest.name}
@@ -133,32 +130,31 @@ export function VoteDestinationScreen({ onNavigate }: VoteDestinationScreenProps
                   </div>
                 </div>
 
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed">
                   {dest.description}
                 </p>
-
-                <div
-                  className={`px-4 py-2.5 rounded-full text-center transition-all font-medium ${
-                    selectedDestination === dest.id
-                      ? 'bg-[#4ECDC4] text-white shadow-md'
-                      : 'bg-gray-100 text-gray-600'
-                  }`}
-                >
-                  {selectedDestination === dest.id ? `✓ Sélectionné` : `Sélectionner ${dest.name.split(',')[0]}`}
-                </div>
               </div>
             </button>
           ))}
         </div>
 
         {/* Fixed Bottom Button */}
-        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4">
+        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4 z-40">
           <Button
             onClick={confirmVote}
             disabled={!selectedDestination || voted}
-            className="w-full bg-[#4ECDC4] hover:bg-[#3db8af] text-white h-12 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-all transform active:scale-95"
+            className="w-full bg-gradient-to-r from-[#4ECDC4] to-[#3db8af] hover:from-[#3db8af] hover:to-[#2da89f] text-white h-14 rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-all transform active:scale-95 shadow-xl text-lg font-semibold min-h-[44px]"
           >
-            {voted ? 'Vote enregistré ✓' : 'Confirmer mon vote'}
+            {voted ? (
+              <span className="flex items-center justify-center gap-2">
+                <CheckCircle className="w-5 h-5" />
+                Vote enregistré ✓
+              </span>
+            ) : (
+              <span className="flex items-center justify-center gap-2">
+                ✨ Valider mon vote
+              </span>
+            )}
           </Button>
         </div>
       </div>

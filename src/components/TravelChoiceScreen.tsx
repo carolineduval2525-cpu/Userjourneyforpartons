@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
-import { ChevronLeft, Users } from 'lucide-react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { ChevronLeft, User, Users } from 'lucide-react';
+import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
 
 interface TravelChoiceScreenProps {
@@ -13,6 +13,7 @@ const stepNames = ['Type', 'Invitations', 'Mood', 'Activités', 'Dates', 'Budget
 
 export function TravelChoiceScreen({ onNavigate }: TravelChoiceScreenProps) {
   const [selectedType, setSelectedType] = useState<'solo' | 'duo' | 'group' | null>(null);
+  const [groupName, setGroupName] = useState('');
 
   const handleNext = () => {
     if (selectedType === 'solo') {
@@ -37,14 +38,11 @@ export function TravelChoiceScreen({ onNavigate }: TravelChoiceScreenProps) {
         {/* Progress Bar */}
         <ProgressBar currentStep={1} totalSteps={7} stepNames={stepNames} />
 
-        <div className="mb-6 text-center relative z-10">
-          <div className="inline-block mb-3">
-            <SmilingLuggage size={50} />
-          </div>
-          <h1 className="text-[#1e3a5f] mb-2">
+        <div className="mb-6 relative z-10">
+          <h1 className="text-[#1e3a5f] mb-2 text-2xl font-bold">
             Qui est de la Partie ?
           </h1>
-          <p className="text-gray-600 text-sm">
+          <p className="text-gray-600">
             Choisis ton mode de voyage pour commencer
           </p>
         </div>
@@ -58,12 +56,15 @@ export function TravelChoiceScreen({ onNavigate }: TravelChoiceScreenProps) {
                 onClick={() => setSelectedType('solo')}
                 className={`relative w-24 h-24 rounded-full border-4 transition-all transform hover:scale-105 ${
                   selectedType === 'solo'
-                    ? 'border-[#4ECDC4] bg-white shadow-lg scale-105'
+                    ? 'border-[#4ECDC4] bg-gradient-to-br from-[#4ECDC4]/10 to-cyan-50 shadow-lg scale-105'
                     : 'border-gray-300 bg-white hover:border-gray-400'
                 }`}
               >
                 <div className="w-full h-full flex items-center justify-center p-3">
-                  <SmilingLuggage size={40} />
+                  {/* 1 personne */}
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#4ECDC4] to-cyan-400 rounded-full flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
                 </div>
                 {selectedType === 'solo' && (
                   <div className="absolute -top-1 -right-1 w-7 h-7 bg-[#4ECDC4] rounded-full flex items-center justify-center animate-in zoom-in">
@@ -84,16 +85,17 @@ export function TravelChoiceScreen({ onNavigate }: TravelChoiceScreenProps) {
                 onClick={() => setSelectedType('duo')}
                 className={`relative w-24 h-24 rounded-full border-4 transition-all transform hover:scale-105 ${
                   selectedType === 'duo'
-                    ? 'border-[#4ECDC4] bg-white shadow-lg scale-105'
+                    ? 'border-[#4ECDC4] bg-gradient-to-br from-[#4ECDC4]/10 to-cyan-50 shadow-lg scale-105'
                     : 'border-gray-300 bg-white hover:border-gray-400'
                 }`}
               >
-                <div className="w-full h-full flex items-center justify-center relative p-2">
-                  <div className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-12">
-                    <SmilingLuggage size={28} />
+                <div className="w-full h-full flex items-center justify-center gap-1 p-2">
+                  {/* 2 personnes */}
+                  <div className="w-9 h-9 bg-gradient-to-br from-[#4ECDC4] to-cyan-400 rounded-full flex items-center justify-center">
+                    <User className="w-5 h-5 text-white" />
                   </div>
-                  <div className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-12">
-                    <SmilingLuggage size={28} />
+                  <div className="w-9 h-9 bg-gradient-to-br from-cyan-400 to-[#4ECDC4] rounded-full flex items-center justify-center">
+                    <User className="w-5 h-5 text-white" />
                   </div>
                 </div>
                 {selectedType === 'duo' && (
@@ -115,19 +117,24 @@ export function TravelChoiceScreen({ onNavigate }: TravelChoiceScreenProps) {
                 onClick={() => setSelectedType('group')}
                 className={`relative w-24 h-24 rounded-full border-4 transition-all transform hover:scale-105 ${
                   selectedType === 'group'
-                    ? 'border-[#4ECDC4] bg-white shadow-lg scale-105'
+                    ? 'border-[#4ECDC4] bg-gradient-to-br from-[#4ECDC4]/10 to-cyan-50 shadow-lg scale-105'
                     : 'border-gray-300 bg-white hover:border-gray-400'
                 }`}
               >
-                <div className="w-full h-full flex items-center justify-center relative p-2">
-                  <div className="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-10">
-                    <SmilingLuggage size={22} />
-                  </div>
-                  <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-8 h-10">
-                    <SmilingLuggage size={22} />
-                  </div>
-                  <div className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-10">
-                    <SmilingLuggage size={22} />
+                <div className="w-full h-full flex items-center justify-center p-2">
+                  {/* 3 personnes */}
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="w-7 h-7 bg-gradient-to-br from-[#4ECDC4] to-cyan-400 rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="flex gap-1">
+                      <div className="w-7 h-7 bg-gradient-to-br from-cyan-400 to-[#4ECDC4] rounded-full flex items-center justify-center">
+                        <User className="w-4 h-4 text-white" />
+                      </div>
+                      <div className="w-7 h-7 bg-gradient-to-br from-[#4ECDC4] to-cyan-400 rounded-full flex items-center justify-center">
+                        <User className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {selectedType === 'group' && (
@@ -143,11 +150,28 @@ export function TravelChoiceScreen({ onNavigate }: TravelChoiceScreenProps) {
               </p>
             </div>
           </div>
+
+          {/* Group Name Input - Shown only for duo or group */}
+          {(selectedType === 'duo' || selectedType === 'group') && (
+            <div className="w-full max-w-sm mb-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
+              <label className="block text-sm text-gray-600 mb-2">
+                Donne un nom à ton groupe
+              </label>
+              <input
+                type="text"
+                value={groupName}
+                onChange={(e) => setGroupName(e.target.value)}
+                placeholder={selectedType === 'duo' ? 'Ex: Les Tourtereaux ❤️' : 'Ex: Les Aventuriers 🌍'}
+                className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4ECDC4] focus:border-transparent text-[#1e3a5f] placeholder:text-gray-400"
+                autoFocus
+              />
+            </div>
+          )}
         </div>
 
         <Button
           onClick={handleNext}
-          disabled={!selectedType}
+          disabled={!selectedType || ((selectedType === 'duo' || selectedType === 'group') && !groupName.trim())}
           className="w-full bg-[#4ECDC4] hover:bg-[#3db8af] text-white h-12 rounded-full mt-6 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform active:scale-95"
         >
           Suivant

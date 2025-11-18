@@ -3,7 +3,7 @@ import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
 import { Slider } from './ui/slider';
 import { Euro, Hotel, Home, Building2, ChevronLeft } from 'lucide-react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
 
 interface BudgetScreenProps {
@@ -38,14 +38,9 @@ export function BudgetScreen({ onNavigate }: BudgetScreenProps) {
         <ProgressBar currentStep={6} totalSteps={7} stepNames={stepNames} />
 
         <div className="mb-6 relative z-10">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-[#4ECDC4]/10 rounded-xl flex items-center justify-center">
-              <Euro className="w-6 h-6 text-[#4ECDC4]" />
-            </div>
-            <h1 className="text-[#1e3a5f]">
-              Quel budget ?
-            </h1>
-          </div>
+          <h1 className="text-[#1e3a5f] mb-2 text-2xl font-bold">
+            Quel budget ?
+          </h1>
           <p className="text-gray-600">
             Définis ton budget et ton hébergement
           </p>
@@ -124,7 +119,7 @@ export function BudgetScreen({ onNavigate }: BudgetScreenProps) {
         </div>
 
         <Button
-          onClick={() => onNavigate('results')}
+          onClick={() => onNavigate('loading')}
           disabled={!selectedAccommodation}
           className="w-full bg-[#4ECDC4] hover:bg-[#3db8af] text-white h-12 rounded-full mt-6 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform active:scale-95"
         >

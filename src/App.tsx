@@ -3,14 +3,19 @@ import { WelcomeScreen } from "./components/WelcomeScreen";
 import { LoginScreen } from "./components/LoginScreen";
 import { SignupScreen } from "./components/SignupScreen";
 import { HomeScreen } from "./components/HomeScreen";
-import { GroupsScreen } from "./components/GroupsScreen";
+import { MyTripsScreen } from "./components/MyTripsScreen";
+import { GroupsMessagingScreen } from "./components/GroupsMessagingScreen";
+import { GroupChatScreen } from "./components/GroupChatScreen";
+import { GroupDetailsScreen } from "./components/GroupDetailsScreen";
 import { ProfileScreen } from "./components/ProfileScreen";
+import { SettingsScreen } from "./components/SettingsScreen";
 import { TravelChoiceScreen } from "./components/TravelChoiceScreen";
 import { InvitationScreen } from "./components/InvitationScreen";
 import { MoodScreen } from "./components/MoodScreen";
 import { ActivitiesScreen } from "./components/ActivitiesScreen";
 import { DatesScreen } from "./components/DatesScreen";
 import { BudgetScreen } from "./components/BudgetScreen";
+import { LoadingScreen } from "./components/LoadingScreen";
 import { ResultsScreen } from "./components/ResultsScreen";
 import { DetailsScreen } from "./components/DetailsScreen";
 import { VoteDestinationScreen } from "./components/VoteDestinationScreen";
@@ -55,9 +60,13 @@ export default function App() {
   const [trips, setTrips] = useState<Trip[]>([]);
   const [currentTrip, setCurrentTrip] =
     useState<Partial<Trip> | null>(null);
+  const [selectedGroupId, setSelectedGroupId] = useState<string | number | null>(null);
+  const [showTripSuccess, setShowTripSuccess] = useState(false);
 
   const addTrip = (trip: Trip) => {
     setTrips((prev) => [...prev, trip]);
+    setShowTripSuccess(true);
+    setTimeout(() => setShowTripSuccess(false), 3500);
   };
 
   const updateTrip = (
@@ -69,6 +78,17 @@ export default function App() {
         trip.id === tripId ? { ...trip, ...updates } : trip,
       ),
     );
+  };
+
+  const navigateToGroup = (screen: string, groupId?: string | number) => {
+    if (groupId) {
+      setSelectedGroupId(groupId);
+    }
+    // Reset success message when navigating away from travels
+    if (screen !== 'travels' && screen !== 'my-trips') {
+      setShowTripSuccess(false);
+    }
+    setCurrentScreen(screen);
   };
 
   const renderScreen = () => {
@@ -88,20 +108,45 @@ export default function App() {
         );
       case "groups":
         return (
-          <GroupsScreen
+          <GroupsMessagingScreen
+            onNavigate={navigateToGroup}
+          />
+        );
+      case "group-chat":
+        return (
+          <GroupChatScreen
+            onNavigate={navigateToGroup}
+            groupId={selectedGroupId || 1}
+          />
+        );
+      case "group-details":
+        return (
+          <GroupDetailsScreen
             onNavigate={setCurrentScreen}
+            groupId={selectedGroupId || 1}
             trips={trips}
           />
         );
       case "travels":
         return (
-          <DetailsScreen
-            onNavigate={setCurrentScreen}
+          <MyTripsScreen
+            onNavigate={navigateToGroup}
             trips={trips}
+            showSuccessMessage={showTripSuccess}
+          />
+        );
+      case "my-trips":
+        return (
+          <MyTripsScreen
+            onNavigate={navigateToGroup}
+            trips={trips}
+            showSuccessMessage={showTripSuccess}
           />
         );
       case "profile":
         return <ProfileScreen onNavigate={setCurrentScreen} />;
+      case "settings":
+        return <SettingsScreen onNavigate={setCurrentScreen} />;
       case "travel-choice":
         return (
           <TravelChoiceScreen onNavigate={setCurrentScreen} />
@@ -120,6 +165,8 @@ export default function App() {
         return <DatesScreen onNavigate={setCurrentScreen} />;
       case "budget":
         return <BudgetScreen onNavigate={setCurrentScreen} />;
+      case "loading":
+        return <LoadingScreen onNavigate={setCurrentScreen} />;
       case "results":
         return <ResultsScreen onNavigate={setCurrentScreen} />;
       case "details":
@@ -127,6 +174,15 @@ export default function App() {
           <DetailsScreen
             onNavigate={setCurrentScreen}
             trips={trips}
+            fromResults={false}
+          />
+        );
+      case "details-from-results":
+        return (
+          <DetailsScreen
+            onNavigate={setCurrentScreen}
+            trips={trips}
+            fromResults={true}
           />
         );
       case "vote-destination":

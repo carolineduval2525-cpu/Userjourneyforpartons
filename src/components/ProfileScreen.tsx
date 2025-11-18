@@ -1,5 +1,5 @@
 import { MobileLayout } from './MobileLayout';
-import { User, Mail, MapPin, Calendar, Settings, LogOut, Heart, Plane } from 'lucide-react';
+import { User, Mail, MapPin, Calendar, Settings, LogOut, Heart, Plane, Camera } from 'lucide-react';
 import { Button } from './ui/button';
 
 interface ProfileScreenProps {
@@ -12,10 +12,19 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
       <div className="p-6">
         {/* Profile Header */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-24 h-24 bg-gradient-to-br from-[#4ECDC4] to-[#3db8af] rounded-full flex items-center justify-center mb-4">
-            <User className="w-12 h-12 text-white" />
+          <div className="relative">
+            <div className="w-24 h-24 bg-gradient-to-br from-[#4ECDC4] to-[#3db8af] rounded-full flex items-center justify-center">
+              <User className="w-12 h-12 text-white" />
+            </div>
+            {/* Camera Button */}
+            <button 
+              onClick={() => {/* Handle photo upload */}}
+              className="absolute bottom-0 right-0 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-gray-100 hover:bg-[#4ECDC4] hover:border-[#4ECDC4] transition-all group"
+            >
+              <Camera className="w-4 h-4 text-[#4ECDC4] group-hover:text-white transition-colors" />
+            </button>
           </div>
-          <h1 className="text-[#1e3a5f] mb-1">Sophie Martin</h1>
+          <h1 className="text-[#1e3a5f] mb-1 mt-4">Sophie Martin</h1>
           <p className="text-gray-600">Aventurière passionnée</p>
         </div>
 
@@ -92,14 +101,16 @@ export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
         {/* Actions */}
         <div className="space-y-3">
           <Button
+            onClick={() => onNavigate('settings')}
             variant="outline"
-            className="w-full border-2 border-gray-200 h-12 rounded-full flex items-center justify-center gap-2"
+            className="w-full border-2 border-gray-200 h-12 rounded-full flex items-center justify-center gap-2 hover:border-[#4ECDC4] hover:bg-[#4ECDC4]/5 transition-all"
           >
             <Settings className="w-5 h-5" />
             Paramètres
           </Button>
 
           <Button
+            onClick={() => onNavigate('welcome')}
             variant="outline"
             className="w-full border-2 border-red-200 text-red-600 hover:bg-red-50 h-12 rounded-full flex items-center justify-center gap-2"
           >

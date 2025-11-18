@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
 import { Bike, Utensils, Camera, Music, ShoppingBag, Gamepad2, Palmtree, BookOpen, ChevronLeft } from 'lucide-react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
 
 interface ActivitiesScreenProps {
@@ -47,12 +47,9 @@ export function ActivitiesScreen({ onNavigate }: ActivitiesScreenProps) {
         <ProgressBar currentStep={4} totalSteps={7} stepNames={stepNames} />
 
         <div className="mb-6 relative z-10">
-          <div className="flex items-center gap-3 mb-3">
-            <SmilingLuggage size={40} />
-            <h1 className="text-[#1e3a5f]">
-              Quelles activités ?
-            </h1>
-          </div>
+          <h1 className="text-[#1e3a5f] mb-2 text-2xl font-bold">
+            Quelles activités ?
+          </h1>
           <p className="text-gray-600">
             Sélectionne tout ce qui te fait envie
           </p>

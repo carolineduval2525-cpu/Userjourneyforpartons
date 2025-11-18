@@ -1,15 +1,16 @@
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
-import { MapPin, Calendar, Users, Euro, Star, Clock, Palmtree, Mountain, Utensils, Camera, Plane, Hotel } from 'lucide-react';
+import { MapPin, Calendar, Users, Euro, Star, Clock, Palmtree, Mountain, Utensils, Camera, Plane, Hotel, ChevronLeft } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import type { Trip } from '../App';
 
 interface DetailsScreenProps {
   onNavigate: (screen: string) => void;
   trips: Trip[];
+  fromResults?: boolean;
 }
 
-export function DetailsScreen({ onNavigate, trips }: DetailsScreenProps) {
+export function DetailsScreen({ onNavigate, trips, fromResults = false }: DetailsScreenProps) {
   // Get the most recent trip or use default data
   const currentTrip = trips.length > 0 ? trips[trips.length - 1] : null;
 
@@ -19,11 +20,22 @@ export function DetailsScreen({ onNavigate, trips }: DetailsScreenProps) {
         {/* Hero Image */}
         <div className="relative h-64">
           <ImageWithFallback
-            src={`https://source.unsplash.com/800x600/?${currentTrip?.image || 'bali,indonesia'}`}
+            src={currentTrip?.imageUrl || 'https://images.unsplash.com/photo-1698466632559-7c66b0ec5a90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWxpJTIwaW5kb25lc2lhJTIwYmVhY2h8ZW58MXx8fHwxNzYzMjMzMzI0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'}
             alt={currentTrip?.destination || 'Bali'}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          
+          {/* Back Button - Only show if coming from Results */}
+          {fromResults && (
+            <button
+              onClick={() => onNavigate('results')}
+              className="absolute top-4 left-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg z-10"
+            >
+              <ChevronLeft className="w-5 h-5 text-[#1e3a5f]" />
+            </button>
+          )}
+          
           <div className="absolute bottom-6 left-6 right-6">
             <h1 className="text-white mb-2">
               {currentTrip ? `${currentTrip.destination}, ${currentTrip.country}` : 'Bali, Indonésie'}

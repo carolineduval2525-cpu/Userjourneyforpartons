@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
-import { Mountain, Waves, Building2, Sparkles, TreePine, Coffee, ChevronLeft } from 'lucide-react';
-import { SmilingLuggage } from './SmilingLuggage';
+import { ChevronLeft } from 'lucide-react';
+import { ImageWithFallback } from './figma/ImageWithFallback';
+import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
 
 interface MoodScreenProps {
@@ -10,12 +11,42 @@ interface MoodScreenProps {
 }
 
 const moods = [
-  { id: 'adventure', label: 'Aventure', icon: Mountain, color: 'from-orange-500 to-red-500' },
-  { id: 'relax', label: 'Détente', icon: Waves, color: 'from-blue-400 to-cyan-400' },
-  { id: 'city', label: 'Urbain', icon: Building2, color: 'from-gray-600 to-gray-800' },
-  { id: 'party', label: 'Festif', icon: Sparkles, color: 'from-purple-500 to-pink-500' },
-  { id: 'nature', label: 'Nature', icon: TreePine, color: 'from-green-600 to-emerald-600' },
-  { id: 'culture', label: 'Culture', icon: Coffee, color: 'from-amber-600 to-yellow-600' },
+  { 
+    id: 'adventure', 
+    label: 'Aventure', 
+    image: 'https://images.unsplash.com/photo-1603741614953-4187ed84cc50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZHZlbnR1cmUlMjBtb3VudGFpbiUyMGhpa2luZ3xlbnwxfHx8fDE3NjMzMjM1MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    emoji: '🏔️'
+  },
+  { 
+    id: 'relax', 
+    label: 'Détente', 
+    image: 'https://images.unsplash.com/photo-1660315247626-12267f8d68db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cm9waWNhbCUyMGJlYWNoJTIwcGFyYWRpc2V8ZW58MXx8fHwxNzYzMjQwNzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    emoji: '🌴'
+  },
+  { 
+    id: 'city', 
+    label: 'Urbain', 
+    image: 'https://images.unsplash.com/photo-1689972206020-37e0e8cf93ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjdWx0dXJhbCUyMGNpdHklMjBhcmNoaXRlY3R1cmV8ZW58MXx8fHwxNzYzMzI2MzI3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    emoji: '🏙️'
+  },
+  { 
+    id: 'party', 
+    label: 'Festif', 
+    image: 'https://images.unsplash.com/photo-1683582544815-66d1ea55d3c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwYXJ0eSUyMG5pZ2h0bGlmZSUyMGZlc3RpdmFsfGVufDF8fHx8MTc2MzMyNjMyN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    emoji: '🎉'
+  },
+  { 
+    id: 'nature', 
+    label: 'Nature', 
+    image: 'https://images.unsplash.com/photo-1690279844829-c5e3cb643d83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuYXR1cmUlMjB3aWxkbGlmZSUyMHNhZmFyaXxlbnwxfHx8fDE3NjMzMjYzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    emoji: '🦁'
+  },
+  { 
+    id: 'culture', 
+    label: 'Culture', 
+    image: 'https://images.unsplash.com/photo-1654738763601-59b59ada3b20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjByZXNvcnQlMjB3ZWxsbmVzc3xlbnwxfHx8fDE3NjMzMjYzMjh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    emoji: '🎨'
+  },
 ];
 
 const stepNames = ['Type', 'Invitations', 'Mood', 'Activités', 'Dates', 'Budget', 'Résultats'];
@@ -39,12 +70,9 @@ export function MoodScreen({ onNavigate }: MoodScreenProps) {
         <ProgressBar currentStep={3} totalSteps={7} stepNames={stepNames} />
 
         <div className="mb-6 relative z-10">
-          <div className="flex items-center gap-3 mb-3">
-            <SmilingLuggage size={40} />
-            <h1 className="text-[#1e3a5f]">
-              Quel est le mood ?
-            </h1>
-          </div>
+          <h1 className="text-[#1e3a5f] text-2xl mb-2 font-bold">
+            Quel est le mood ?
+          </h1>
           <p className="text-gray-600">
             Choisis l'ambiance qui te correspond
           </p>
@@ -52,21 +80,39 @@ export function MoodScreen({ onNavigate }: MoodScreenProps) {
 
         <div className="flex-1 grid grid-cols-2 gap-4">
           {moods.map((mood) => {
-            const Icon = mood.icon;
             return (
               <button
                 key={mood.id}
                 onClick={() => setSelectedMood(mood.id)}
-                className={`p-6 rounded-2xl border-2 transition-all transform hover:scale-105 ${
+                className={`relative rounded-2xl border-3 transition-all transform hover:scale-105 overflow-hidden ${
                   selectedMood === mood.id
-                    ? 'border-[#4ECDC4] bg-[#4ECDC4]/5 scale-95 shadow-lg'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
+                    ? 'border-[#4ECDC4] ring-4 ring-[#4ECDC4]/30 scale-105 shadow-xl'
+                    : 'border-gray-200 hover:border-gray-300 shadow-md'
                 }`}
               >
-                <div className={`w-16 h-16 bg-gradient-to-br ${mood.color} rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-md`}>
-                  <Icon className="w-8 h-8 text-white" />
+                {/* Image Background */}
+                <div className="relative h-32">
+                  <ImageWithFallback
+                    src={mood.image}
+                    alt={mood.label}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  
+                  {/* Check Icon */}
+                  {selectedMood === mood.id && (
+                    <div className="absolute top-2 right-2 w-7 h-7 bg-[#4ECDC4] rounded-full flex items-center justify-center animate-in zoom-in shadow-lg">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" className="w-5 h-5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                  )}
+                  
+                  {/* Label */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                    <p className="text-white text-center">{mood.label}</p>
+                  </div>
                 </div>
-                <p className="text-[#1e3a5f] text-center">{mood.label}</p>
               </button>
             );
           })}

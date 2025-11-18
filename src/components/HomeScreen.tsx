@@ -2,6 +2,7 @@ import { MobileLayout } from './MobileLayout';
 import { Plus, TrendingUp, MapPin, Users, CheckCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { Logo } from './Logo';
 import type { Trip } from '../App';
 
 interface HomeScreenProps {
@@ -11,13 +12,28 @@ interface HomeScreenProps {
 
 export function HomeScreen({ onNavigate, trips }: HomeScreenProps) {
   const trendingDestinations = [
-    { name: 'Bali', country: 'Indonésie', image: 'bali indonesia', trend: '+15%' },
-    { name: 'Lisbonne', country: 'Portugal', image: 'lisbon portugal', trend: '+12%' },
-    { name: 'Tokyo', country: 'Japon', image: 'tokyo japan', trend: '+10%' },
+    { 
+      name: 'Santorin', 
+      country: 'Grèce', 
+      image: 'https://images.unsplash.com/photo-1737891681043-435b34d9c8d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzYW50b3JpbmklMjBncmVlY2UlMjBzdW5zZXR8ZW58MXx8fHwxNzYzMjUyNzM3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
+      trend: '+15%' 
+    },
+    { 
+      name: 'Tokyo', 
+      country: 'Japon', 
+      image: 'https://images.unsplash.com/photo-1583915223588-7d88ebf23414?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0b2t5byUyMGphcGFuJTIwbmlnaHR8ZW58MXx8fHwxNzYzMzI1NjU4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
+      trend: '+12%' 
+    },
+    { 
+      name: 'Maldives', 
+      country: 'Océan Indien', 
+      image: 'https://images.unsplash.com/photo-1698726654862-377c0218dfdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWxkaXZlcyUyMGJlYWNoJTIwcmVzb3J0fGVufDF8fHx8MTc2MzMyNTA5Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral', 
+      trend: '+10%' 
+    },
   ];
 
   return (
-    <MobileLayout activeTab="home" onNavigate={onNavigate}>
+    <MobileLayout activeTab="home" onNavigate={onNavigate} showHeader={true}>
       <div className="p-6">
         {/* Welcome Section */}
         <div className="mb-8">
@@ -98,7 +114,7 @@ export function HomeScreen({ onNavigate, trips }: HomeScreenProps) {
                 <div className="flex items-center gap-4">
                   <div className="w-24 h-24 flex-shrink-0">
                     <ImageWithFallback
-                      src={`https://source.unsplash.com/400x400/?${dest.image}`}
+                      src={dest.image}
                       alt={dest.name}
                       className="w-full h-full object-cover"
                     />
