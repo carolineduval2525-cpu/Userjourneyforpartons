@@ -209,11 +209,11 @@ export function ResultsScreen({ onNavigate }: ResultsScreenProps) {
           </div>
         </div>
 
-        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4">
+        <div className="fixed bottom-[100px] left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4">
           <Button 
             onClick={() => onNavigate('destination-validated')}
             disabled={!hasVoted}
-            className="w-full bg-gradient-to-r from-[#4ECDC4] to-[#3db8af] hover:from-[#3db8af] hover:to-[#4ECDC4] text-white h-12 rounded-full shadow-lg transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-[#4ECDC4] to-[#3db8af] hover:from-[#3db8af] hover:to-[#4ECDC4] text-white h-12 rounded-full shadow-lg transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-center pt-[1px] pr-[12px] pb-[8px] pl-[12px]"
           >
             <Sparkles className="w-5 h-5 mr-2" />
             Valider mon vote

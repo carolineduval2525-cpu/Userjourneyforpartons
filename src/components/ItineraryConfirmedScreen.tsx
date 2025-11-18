@@ -10,9 +10,10 @@ import type { Trip } from '../App';
 interface ItineraryConfirmedScreenProps {
   onNavigate: (screen: string) => void;
   onSaveTrip: (trip: Trip) => void;
+  accommodationSkipped?: boolean;
 }
 
-export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryConfirmedScreenProps) {
+export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip, accommodationSkipped }: ItineraryConfirmedScreenProps) {
   const [flightConfirmation, setFlightConfirmation] = useState('');
   const [hotelConfirmation, setHotelConfirmation] = useState('');
   const [saved, setSaved] = useState(false);
@@ -32,7 +33,7 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
       },
       duration: 7,
       members: 1,
-      budget: 1620,
+      budget: accommodationSkipped ? 780 : 1620,
       status: 'Confirmé',
       flight: {
         airline: 'Air France',
@@ -41,7 +42,7 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
         price: 780,
         confirmationNumber: flightConfirmation || undefined,
       },
-      accommodation: {
+      accommodation: accommodationSkipped ? undefined : {
         title: 'Villa avec piscine privée',
         type: 'Villa entière',
         pricePerNight: 120,
@@ -145,49 +146,51 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
           </div>
 
           {/* Hotel Information Section */}
-          <div className="bg-white rounded-2xl p-5 border-2 border-gray-200 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
-                <Hotel className="w-5 h-5 text-purple-600" />
-              </div>
-              <h3 className="text-[#1e3a5f]">Mon Hébergement</h3>
-            </div>
-
-            {/* Hotel Summary */}
-            <div className="bg-gray-50 rounded-xl p-4 mb-4">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 bg-[#4ECDC4]/20 rounded-full flex items-center justify-center">
-                  <Hotel className="w-4 h-4 text-[#4ECDC4]" />
+          {!accommodationSkipped && (
+            <div className="bg-white rounded-2xl p-5 border-2 border-gray-200 shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                  <Hotel className="w-5 h-5 text-purple-600" />
                 </div>
-                <div>
-                  <p className="text-[#1e3a5f]">Villa avec piscine privée</p>
-                  <p className="text-sm text-gray-600">Seminyak, Bali</p>
+                <h3 className="text-[#1e3a5f]">Mon Hébergement</h3>
+              </div>
+
+              {/* Hotel Summary */}
+              <div className="bg-gray-50 rounded-xl p-4 mb-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 bg-[#4ECDC4]/20 rounded-full flex items-center justify-center">
+                    <Hotel className="w-4 h-4 text-[#4ECDC4]" />
+                  </div>
+                  <div>
+                    <p className="text-[#1e3a5f]">Villa avec piscine privée</p>
+                    <p className="text-sm text-gray-600">Seminyak, Bali</p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600">7 nuits</span>
+                  <span className="text-[#4ECDC4]">840€</span>
                 </div>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">7 nuits</span>
-                <span className="text-[#4ECDC4]">840€</span>
+
+              {/* Hotel Confirmation Input */}
+              <div className="space-y-2">
+                <Label htmlFor="hotelConfirmation" className="text-sm text-gray-700">
+                  Adresse / N° de réservation d'hôtel
+                </Label>
+                <Input
+                  id="hotelConfirmation"
+                  type="text"
+                  placeholder="Ex: Jl. Seminyak Beach ou RES789456"
+                  value={hotelConfirmation}
+                  onChange={(e) => setHotelConfirmation(e.target.value)}
+                  className="h-12 rounded-xl border-gray-300"
+                />
+                <p className="text-xs text-gray-500">
+                  L'adresse exacte ou le numéro de confirmation Airbnb/Booking
+                </p>
               </div>
             </div>
-
-            {/* Hotel Confirmation Input */}
-            <div className="space-y-2">
-              <Label htmlFor="hotelConfirmation" className="text-sm text-gray-700">
-                Adresse / N° de réservation d'hôtel
-              </Label>
-              <Input
-                id="hotelConfirmation"
-                type="text"
-                placeholder="Ex: Jl. Seminyak Beach ou RES789456"
-                value={hotelConfirmation}
-                onChange={(e) => setHotelConfirmation(e.target.value)}
-                className="h-12 rounded-xl border-gray-300"
-              />
-              <p className="text-xs text-gray-500">
-                L'adresse exacte ou le numéro de confirmation Airbnb/Booking
-              </p>
-            </div>
-          </div>
+          )}
 
           {/* Help Text */}
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-200">
@@ -198,7 +201,7 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip }: ItineraryCo
         </div>
 
         {/* Save Button */}
-        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4">
+        <div className="fixed bottom-[100px] left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4">
           <Button
             onClick={handleSave}
             disabled={saved}

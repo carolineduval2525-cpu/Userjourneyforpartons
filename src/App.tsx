@@ -62,6 +62,7 @@ export default function App() {
     useState<Partial<Trip> | null>(null);
   const [selectedGroupId, setSelectedGroupId] = useState<string | number | null>(null);
   const [showTripSuccess, setShowTripSuccess] = useState(false);
+  const [accommodationSkipped, setAccommodationSkipped] = useState(false);
 
   const addTrip = (trip: Trip) => {
     setTrips((prev) => [...prev, trip]);
@@ -87,6 +88,10 @@ export default function App() {
     // Reset success message when navigating away from travels
     if (screen !== 'travels' && screen !== 'my-trips') {
       setShowTripSuccess(false);
+    }
+    // Reset accommodation skipped state when starting a new trip
+    if (screen === 'travel-choice') {
+      setAccommodationSkipped(false);
     }
     setCurrentScreen(screen);
   };
@@ -207,17 +212,22 @@ export default function App() {
         return (
           <AccommodationProposalsScreen
             onNavigate={setCurrentScreen}
+            onSkipAccommodation={() => setAccommodationSkipped(true)}
           />
         );
       case "trip-summary":
         return (
-          <TripSummaryScreen onNavigate={setCurrentScreen} />
+          <TripSummaryScreen 
+            onNavigate={setCurrentScreen}
+            accommodationSkipped={accommodationSkipped}
+          />
         );
       case "itinerary-confirmed":
         return (
           <ItineraryConfirmedScreen
             onNavigate={setCurrentScreen}
             onSaveTrip={addTrip}
+            accommodationSkipped={accommodationSkipped}
           />
         );
       default:

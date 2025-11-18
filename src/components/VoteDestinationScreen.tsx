@@ -139,7 +139,7 @@ export function VoteDestinationScreen({ onNavigate }: VoteDestinationScreenProps
         </div>
 
         {/* Fixed Bottom Button */}
-        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4 z-40">
+        <div className="fixed bottom-[100px] left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4 z-40">
           <Button
             onClick={confirmVote}
             disabled={!selectedDestination || voted}

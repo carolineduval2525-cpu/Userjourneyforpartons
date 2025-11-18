@@ -17,6 +17,7 @@ import { Logo } from "./Logo";
 
 interface AccommodationProposalsScreenProps {
   onNavigate: (screen: string) => void;
+  onSkipAccommodation: () => void;
 }
 
 interface Accommodation {
@@ -145,9 +146,11 @@ const accommodations: Accommodation[] = [
 
 export function AccommodationProposalsScreen({
   onNavigate,
+  onSkipAccommodation,
 }: AccommodationProposalsScreenProps) {
-  const [selectedAccommodations, setSelectedAccommodations] =
-    useState<number[]>([]);
+  const [selectedAccommodations, setSelectedAccommodations] = useState<
+    number[]
+  >([]);
 
   const toggleSelection = (accommodationId: number) => {
     setSelectedAccommodations((prev) =>
@@ -304,7 +307,7 @@ export function AccommodationProposalsScreen({
       </div>
 
       {/* Fixed Bottom Buttons */}
-      <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4 space-y-2">
+      <div className="fixed bottom-[100px] left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4 space-y-2">
         <Button
           onClick={() => onNavigate("trip-summary")}
           className="w-full bg-[#4ECDC4] hover:bg-[#3db8af] text-white h-12 rounded-full transition-all transform active:scale-95"
@@ -313,7 +316,10 @@ export function AccommodationProposalsScreen({
           Voir les résultats du vote
         </Button>
         <Button
-          onClick={() => onNavigate("trip-summary")}
+          onClick={() => {
+            onSkipAccommodation();
+            onNavigate("trip-summary");
+          }}
           variant="ghost"
           className="w-full text-gray-600 h-10 hover:text-[#4ECDC4]"
         >

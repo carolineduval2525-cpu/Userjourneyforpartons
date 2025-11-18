@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
 import { Plane, Clock, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
-import { Logo } from './Logo';
 
 interface FlightProposalsScreenProps {
   onNavigate: (screen: string) => void;
@@ -116,21 +115,6 @@ export function FlightProposalsScreen({ onNavigate }: FlightProposalsScreenProps
           </p>
         </div>
 
-        {/* Flight Info */}
-        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-xl mb-6 border border-blue-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-blue-900">
-                <span className="font-medium">Paris CDG</span> → <span className="font-medium">Bali DPS</span>
-              </p>
-              <p className="text-xs text-blue-700 mt-1">
-                15 mai 2025 • 1 adulte
-              </p>
-            </div>
-            <Logo size={35} />
-          </div>
-        </div>
-
         {/* Vote Instructions */}
         <div className="bg-gradient-to-r from-amber-50 to-orange-50 p-3 rounded-xl mb-4 border border-amber-100">
           <p className="text-xs text-amber-900">
@@ -144,7 +128,7 @@ export function FlightProposalsScreen({ onNavigate }: FlightProposalsScreenProps
             <button
               key={flight.id}
               onClick={() => toggleSelection(flight.id)}
-              className={`w-full bg-white rounded-2xl p-4 transition-all transform hover:scale-[1.01] ${
+              className={`relative w-full bg-white rounded-2xl p-4 transition-all transform hover:scale-[1.01] ${
                 selectedFlights.includes(flight.id)
                   ? 'border-4 border-[#4ECDC4] shadow-xl ring-4 ring-[#4ECDC4]/20'
                   : 'border-2 border-gray-200 hover:border-gray-300 hover:shadow-md'
@@ -152,10 +136,9 @@ export function FlightProposalsScreen({ onNavigate }: FlightProposalsScreenProps
             >
               {/* Selected Indicator */}
               {selectedFlights.includes(flight.id) && (
-                <div className="flex items-center justify-center mb-3">
-                  <div className="bg-[#4ECDC4] px-4 py-1.5 rounded-full flex items-center gap-2 shadow-md">
-                    <CheckCircle className="w-4 h-4 text-white fill-white" />
-                    <span className="text-white text-sm font-medium">Sélectionné</span>
+                <div className="absolute top-3 right-3">
+                  <div className="bg-[#4ECDC4] p-2 rounded-full shadow-lg animate-in zoom-in">
+                    <CheckCircle className="w-5 h-5 text-white fill-white" />
                   </div>
                 </div>
               )}
@@ -207,7 +190,7 @@ export function FlightProposalsScreen({ onNavigate }: FlightProposalsScreenProps
         </div>
 
         {/* Fixed Bottom Buttons */}
-        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4">
+        <div className="fixed bottom-[100px] left-0 right-0 max-w-md mx-auto px-6 bg-gradient-to-t from-white via-white to-transparent pt-6 pb-4">
           <Button
             onClick={() => onNavigate('accommodation-proposals')}
             className="w-full bg-[#4ECDC4] hover:bg-[#3db8af] text-white h-12 rounded-full transition-all transform active:scale-95 flex items-center justify-center gap-2"

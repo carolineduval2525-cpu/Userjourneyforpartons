@@ -60,7 +60,7 @@ export function DatesScreen({ onNavigate }: DatesScreenProps) {
           <div className="grid grid-cols-2 gap-3 p-1 bg-gray-100 rounded-xl">
             <button
               onClick={() => setDateType('precise')}
-              className={`py-3 rounded-lg transition-all ${
+              className={`py-3 rounded-lg transition-all text-center ${
                 dateType === 'precise'
                   ? 'bg-white text-[#4ECDC4] shadow-sm'
                   : 'text-gray-600'
@@ -70,7 +70,7 @@ export function DatesScreen({ onNavigate }: DatesScreenProps) {
             </button>
             <button
               onClick={() => setDateType('flexible')}
-              className={`py-3 rounded-lg transition-all ${
+              className={`py-3 rounded-lg transition-all text-center ${
                 dateType === 'flexible'
                   ? 'bg-white text-[#4ECDC4] shadow-sm'
                   : 'text-gray-600'
@@ -90,7 +90,7 @@ export function DatesScreen({ onNavigate }: DatesScreenProps) {
                   mode="range"
                   selected={dateRange}
                   onSelect={setDateRange}
-                  className="rounded-md mx-auto"
+                  className="rounded-md mx-auto" text-center
                   disabled={(date) => date < new Date()}
                   numberOfMonths={1}
                 />
