@@ -1,3 +1,4 @@
+import image_1873447990cd9d63141b1a42a26f5e3f5b067e6b from 'figma:asset/1873447990cd9d63141b1a42a26f5e3f5b067e6b.png';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -24,7 +25,7 @@ export function SignupScreen({ onNavigate }: SignupScreenProps) {
       {/* Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-6">
         <div className="mb-6">
-          <img src={logoImage} alt="Partons!" className="w-32 h-auto mx-auto" />
+          <img src={image_1873447990cd9d63141b1a42a26f5e3f5b067e6b} alt="Partons!" className="w-32 h-auto mx-auto" />
         </div>
 
         <h1 className="text-[#1e3a5f] text-center mb-2">

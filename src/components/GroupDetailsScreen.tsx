@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
+import { Input } from './ui/input';
 import { 
   ChevronLeft, 
   Users, 
@@ -15,7 +16,9 @@ import {
   Clock,
   Settings,
   Sparkles,
-  Bell
+  Bell,
+  X,
+  UserPlus
 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import type { Trip } from '../App';
@@ -36,10 +39,24 @@ interface Member {
 
 export function GroupDetailsScreen({ onNavigate, groupId, trips }: GroupDetailsScreenProps) {
   const [reminderSent, setReminderSent] = useState(false);
+  const [showInviteDialog, setShowInviteDialog] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteSent, setInviteSent] = useState(false);
 
   const handleSendReminder = () => {
     setReminderSent(true);
     setTimeout(() => setReminderSent(false), 3000);
+  };
+
+  const handleSendInvite = () => {
+    if (inviteEmail.trim()) {
+      setInviteSent(true);
+      setTimeout(() => {
+        setInviteSent(false);
+        setShowInviteDialog(false);
+        setInviteEmail('');
+      }, 2000);
+    }
   };
 
   // Mock data for the default groups
@@ -145,21 +162,14 @@ export function GroupDetailsScreen({ onNavigate, groupId, trips }: GroupDetailsS
             alt={groupData.destination}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           
           {/* Back Button */}
           <button
-            onClick={() => onNavigate('travels')}
+            onClick={() => onNavigate('groups')}
             className="absolute top-4 left-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg"
           >
             <ChevronLeft className="w-5 h-5 text-[#1e3a5f]" />
-          </button>
-
-          {/* Settings Button */}
-          <button
-            className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg"
-          >
-            <Settings className="w-5 h-5 text-[#1e3a5f]" />
           </button>
 
           <div className="absolute bottom-4 left-4 right-4">
@@ -239,6 +249,7 @@ export function GroupDetailsScreen({ onNavigate, groupId, trips }: GroupDetailsS
                 variant="ghost"
                 size="sm"
                 className="text-[#4ECDC4] hover:text-[#3db8af]"
+                onClick={() => setShowInviteDialog(true)}
               >
                 + Inviter
               </Button>
@@ -259,8 +270,8 @@ export function GroupDetailsScreen({ onNavigate, groupId, trips }: GroupDetailsS
                     </div>
                   </div>
                   {member.hasVoted ? (
-                    <div className="flex items-center gap-1 text-green-600 text-xs">
-                      <CheckCircle className="w-4 h-4 fill-green-600" />
+                    <div className="flex items-center gap-2 text-green-600 text-xs">
+                      <div className="w-2 h-2 bg-green-600 rounded-full" />
                       <span>A voté</span>
                     </div>
                   ) : (
@@ -442,6 +453,67 @@ export function GroupDetailsScreen({ onNavigate, groupId, trips }: GroupDetailsS
           )}
         </div>
       </div>
+
+      {/* Invite Dialog */}
+      {showInviteDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm animate-in zoom-in duration-200">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-[#1e3a5f] text-lg">Inviter un membre</h3>
+                <button 
+                  onClick={() => setShowInviteDialog(false)}
+                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
+              </div>
+              
+              <div className="mb-4">
+                <label className="text-sm text-gray-600 mb-2 block">Adresse email</label>
+                <Input
+                  type="email"
+                  placeholder="exemple@email.com"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                  className="w-full h-12 rounded-xl"
+                  autoFocus
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  Un email d'invitation sera envoyé à cette adresse
+                </p>
+              </div>
+              
+              <div className="flex gap-3">
+                <Button
+                  variant="outline"
+                  className="flex-1 h-11 rounded-xl"
+                  onClick={() => setShowInviteDialog(false)}
+                >
+                  Annuler
+                </Button>
+                <Button
+                  className="flex-1 h-11 rounded-xl bg-[#4ECDC4] hover:bg-[#3db8af] text-white"
+                  onClick={handleSendInvite}
+                  disabled={!inviteEmail.trim() || inviteSent}
+                >
+                  {inviteSent ? (
+                    <>
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Envoyé !
+                    </>
+                  ) : (
+                    <>
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Envoyer
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </MobileLayout>
   );
 }

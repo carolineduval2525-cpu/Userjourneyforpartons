@@ -76,10 +76,10 @@ export function ItineraryConfirmedScreen({ onNavigate, onSaveTrip, accommodation
           <div className="inline-block mb-3">
             <Logo size={50} />
           </div>
-          <h1 className="text-[#1e3a5f] mb-2">
+          <h1 className="text-[#1e3a5f] mb-2 text-left text-[24px] font-bold">
             Itinéraire : Bali
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-left">
             Finalise ton voyage en ajoutant tes confirmations
           </p>
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Logo } from './Logo';
-import { Sparkles, MapPin, TrendingUp, Users, CheckCircle } from 'lucide-react';
+import { Sparkles, MapPin, TrendingUp, Users, Check } from 'lucide-react';
 
 interface LoadingScreenProps {
   onNavigate: (screen: string) => void;
@@ -128,7 +128,7 @@ export function LoadingScreen({ onNavigate }: LoadingScreenProps) {
                   }`}
                 >
                   {isCompleted ? (
-                    <CheckCircle className="w-6 h-6 text-white fill-white" />
+                    <Check className="w-6 h-6 text-white" />
                   ) : (
                     <Icon className={`w-5 h-5 ${isCurrent ? 'text-white' : 'text-gray-400'}`} />
                   )}
@@ -150,7 +150,7 @@ export function LoadingScreen({ onNavigate }: LoadingScreenProps) {
                 {/* Checkmark pour complété */}
                 {isCompleted && (
                   <div className="animate-in zoom-in duration-300">
-                    <CheckCircle className="w-5 h-5 text-[#4ECDC4] fill-[#4ECDC4]" />
+                    <Check className="w-5 h-5 text-[#4ECDC4]" />
                   </div>
                 )}
               </div>
@@ -162,7 +162,7 @@ export function LoadingScreen({ onNavigate }: LoadingScreenProps) {
         {currentStep >= loadingSteps.length && (
           <div className="mt-8 text-center animate-in fade-in zoom-in duration-500">
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4ECDC4] to-[#3db8af] text-white rounded-full shadow-lg">
-              <CheckCircle className="w-5 h-5 fill-white" />
+              <Check className="w-5 h-5" />
               <span>Analyse terminée !</span>
             </div>
           </div>

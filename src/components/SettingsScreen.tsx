@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { 
   ChevronLeft, 
@@ -22,6 +23,19 @@ interface SettingsScreenProps {
 }
 
 export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
+  const [notifications, setNotifications] = useState({
+    newMessages: true,
+    voteReminders: true,
+    destinationSuggestions: false
+  });
+
+  const toggleNotification = (type: 'newMessages' | 'voteReminders' | 'destinationSuggestions') => {
+    setNotifications(prev => ({
+      ...prev,
+      [type]: !prev[type]
+    }));
+  };
+
   return (
     <MobileLayout activeTab="profile" onNavigate={onNavigate}>
       <div className="min-h-screen bg-gray-50">
@@ -152,7 +166,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
                     <div className="text-xs text-gray-500">Groupes et invitations</div>
                   </div>
                 </div>
-                <div className="w-12 h-6 bg-[#4ECDC4] rounded-full relative cursor-pointer">
+                <div className="w-12 h-6 bg-[#4ECDC4] rounded-full relative cursor-pointer" onClick={() => toggleNotification('newMessages')}>
                   <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
                 </div>
               </div>
@@ -167,7 +181,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
                     <div className="text-xs text-gray-500">Rappels de participation</div>
                   </div>
                 </div>
-                <div className="w-12 h-6 bg-[#4ECDC4] rounded-full relative cursor-pointer">
+                <div className="w-12 h-6 bg-[#4ECDC4] rounded-full relative cursor-pointer" onClick={() => toggleNotification('voteReminders')}>
                   <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
                 </div>
               </div>
@@ -182,7 +196,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
                     <div className="text-xs text-gray-500">Recommandations personnalisées</div>
                   </div>
                 </div>
-                <div className="w-12 h-6 bg-gray-200 rounded-full relative cursor-pointer">
+                <div className="w-12 h-6 bg-gray-200 rounded-full relative cursor-pointer" onClick={() => toggleNotification('destinationSuggestions')}>
                   <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
                 </div>
               </div>

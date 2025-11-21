@@ -6,6 +6,7 @@ import { Clock, ChevronLeft, CalendarDays } from 'lucide-react';
 import type { DateRange } from 'react-day-picker';
 import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
+import mascotImage from 'figma:asset/1873447990cd9d63141b1a42a26f5e3f5b067e6b.png';
 
 interface DatesScreenProps {
   onNavigate: (screen: string) => void;
@@ -47,9 +48,12 @@ export function DatesScreen({ onNavigate }: DatesScreenProps) {
         <ProgressBar currentStep={5} totalSteps={7} stepNames={stepNames} />
 
         <div className="mb-6">
-          <h1 className="text-[#1e3a5f] mb-2 text-2xl font-bold">
-            Quand pars-tu ?
-          </h1>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-[#1e3a5f] text-2xl font-bold">
+              Quand pars-tu ?
+            </h1>
+            <img src={mascotImage} alt="Mascotte Partons" className="w-15 h-15 object-contain" />
+          </div>
           <p className="text-gray-600">
             Choisis tes dates ou une période flexible
           </p>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MobileLayout } from './MobileLayout';
 import { Button } from './ui/button';
-import { Plane, Clock, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
+import { Plane, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface FlightProposalsScreenProps {
   onNavigate: (screen: string) => void;
@@ -138,7 +138,7 @@ export function FlightProposalsScreen({ onNavigate }: FlightProposalsScreenProps
               {selectedFlights.includes(flight.id) && (
                 <div className="absolute top-3 right-3">
                   <div className="bg-[#4ECDC4] p-2 rounded-full shadow-lg animate-in zoom-in">
-                    <CheckCircle className="w-5 h-5 text-white fill-white" />
+                    <div className="w-3 h-3 bg-white rounded-full" />
                   </div>
                 </div>
               )}

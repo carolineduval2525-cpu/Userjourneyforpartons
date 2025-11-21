@@ -5,6 +5,7 @@ import { UserPlus, Mail, X, ChevronLeft, Phone } from 'lucide-react';
 import { useState } from 'react';
 import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
+import mascotImage from 'figma:asset/1873447990cd9d63141b1a42a26f5e3f5b067e6b.png';
 
 interface InvitationScreenProps {
   onNavigate: (screen: string) => void;
@@ -52,9 +53,12 @@ export function InvitationScreen({ onNavigate }: InvitationScreenProps) {
         <ProgressBar currentStep={2} totalSteps={7} stepNames={stepNames} />
 
         <div className="mb-6 relative z-10">
-          <h1 className="text-[#1e3a5f] mb-2 text-2xl font-bold">
-            Qui vient avec toi ?
-          </h1>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-[#1e3a5f] text-2xl font-bold">
+              Qui vient avec toi ?
+            </h1>
+            <img src={mascotImage} alt="Mascotte Partons" className="w-15 h-15 object-contain" />
+          </div>
           <p className="text-gray-600">
             Invite tes amis à rejoindre l'aventure !
           </p>

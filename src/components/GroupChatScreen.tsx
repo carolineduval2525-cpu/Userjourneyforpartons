@@ -225,7 +225,7 @@ export function GroupChatScreen({ onNavigate, groupId }: GroupChatScreenProps) {
         </div>
 
         {/* Message Input - Fixed at bottom */}
-        <div className="fixed bottom-16 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 shadow-lg pb-safe-offset-2">
+        <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 shadow-lg pb-safe-offset-2">
           <div className="flex gap-3 p-4">
             <Input
               value={message}

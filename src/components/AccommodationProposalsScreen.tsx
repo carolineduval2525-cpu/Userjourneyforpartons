@@ -8,7 +8,6 @@ import {
   Users,
   ChevronLeft,
   ChevronRight,
-  CheckCircle,
   Wifi,
   Coffee,
 } from "lucide-react";
@@ -241,7 +240,7 @@ export function AccommodationProposalsScreen({
                   accommodation.id,
                 ) && (
                   <div className="absolute top-2 right-2 bg-[#4ECDC4] p-1.5 rounded-full shadow-lg animate-in zoom-in">
-                    <CheckCircle className="w-4 h-4 text-white fill-white" />
+                    <div className="w-2.5 h-2.5 bg-white rounded-full" />
                   </div>
                 )}
                 <div className="absolute top-2 left-2 bg-white/90 px-2 py-1 rounded-full">

@@ -5,6 +5,7 @@ import { ChevronLeft } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
+import mascotImage from 'figma:asset/1873447990cd9d63141b1a42a26f5e3f5b067e6b.png';
 
 interface MoodScreenProps {
   onNavigate: (screen: string) => void;
@@ -20,7 +21,7 @@ const moods = [
   { 
     id: 'relax', 
     label: 'Détente', 
-    image: 'https://images.unsplash.com/photo-1660315247626-12267f8d68db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cm9waWNhbCUyMGJlYWNoJTIwcGFyYWRpc2V8ZW58MXx8fHwxNzYzMjQwNzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    image: 'https://images.unsplash.com/photo-1557447504-a2bd91cd92c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWxpJTIwYmVhY2glMjBwYXJhZGlzZXxlbnwxfHx8fDE3NjM1MDQyMTN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
     emoji: '🌴'
   },
   { 
@@ -70,9 +71,12 @@ export function MoodScreen({ onNavigate }: MoodScreenProps) {
         <ProgressBar currentStep={3} totalSteps={7} stepNames={stepNames} />
 
         <div className="mb-6 relative z-10">
-          <h1 className="text-[#1e3a5f] text-2xl mb-2 font-bold">
-            Quel est le mood ?
-          </h1>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-[#1e3a5f] text-2xl font-bold">
+              Quel est le mood ?
+            </h1>
+            <img src={mascotImage} alt="Mascotte Partons" className="w-15 h-15 object-contain" />
+          </div>
           <p className="text-gray-600">
             Choisis l'ambiance qui te correspond
           </p>

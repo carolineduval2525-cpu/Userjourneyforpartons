@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Logo } from './Logo';
 import type { Trip } from '../App';
+import mascotImage from 'figma:asset/1873447990cd9d63141b1a42a26f5e3f5b067e6b.png';
 
 interface HomeScreenProps {
   onNavigate: (screen: string) => void;
@@ -37,9 +38,12 @@ export function HomeScreen({ onNavigate, trips }: HomeScreenProps) {
       <div className="p-6">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-[#1e3a5f] mb-2">
-            Salut Sophie ! 👋
-          </h1>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-[#1e3a5f]">
+              Salut Sophie !
+            </h1>
+            <img src={mascotImage} alt="Mascotte Partons" className="w-15 h-15 object-contain" />
+          </div>
           <p className="text-gray-600">
             Prête pour ta prochaine aventure ?
           </p>

@@ -5,6 +5,7 @@ import { Heart, TrendingUp, Users, ChevronLeft, Sparkles, CheckCircle } from 'lu
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Logo } from './Logo';
 import { ProgressBar } from './ProgressBar';
+import mascotImage from 'figma:asset/1873447990cd9d63141b1a42a26f5e3f5b067e6b.png';
 
 interface ResultsScreenProps {
   onNavigate: (screen: string) => void;
@@ -88,6 +89,7 @@ export function ResultsScreen({ onNavigate }: ResultsScreenProps) {
               <h1 className="text-[#1e3a5f] text-[20px] font-bold">
                 Vote pour ta destination !
               </h1>
+              <img src={mascotImage} alt="Mascotte Partons" className="w-15 h-15 object-contain" />
             </div>
             <p className="text-gray-600">
               Choisis ta destination préférée parmi nos meilleures recommandations
@@ -129,8 +131,8 @@ export function ResultsScreen({ onNavigate }: ResultsScreenProps) {
                     )}
                     {isSelected && (
                       <div className="absolute inset-0 bg-[#4ECDC4]/10 flex items-center justify-center">
-                        <div className="bg-white rounded-full p-3 shadow-lg animate-in zoom-in">
-                          <CheckCircle className="w-8 h-8 text-[#4ECDC4]" />
+                        <div className="bg-[#4ECDC4] rounded-full p-4 shadow-lg animate-in zoom-in">
+                          <div className="w-4 h-4 bg-white rounded-full" />
                         </div>
                       </div>
                     )}
